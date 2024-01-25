@@ -1,7 +1,7 @@
 /// @description Inserir descrição aqui
 // Você pode escrever seu código neste editor
 
-//Estado idle/correndo/ataque1/ataque2/ataque3
+//Estado idle/correndo/ataque/caixa
 estado = "idle"
 
 

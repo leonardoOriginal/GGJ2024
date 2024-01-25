@@ -2,5 +2,8 @@
 // Você pode escrever seu código neste editor
 
 
-
+if(estado == "abriu")
+{
+	exit;
+}
 
