@@ -5,7 +5,6 @@
 estado = "idle"
 
 
-
 //Isso vai mover o player
 velh = 0;
 velv = 0;

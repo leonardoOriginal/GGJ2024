@@ -17,10 +17,12 @@
     {"name":"teste","order":3,"path":"folders/Sprites/teste.yy",},
   ],
   "ResourceOrderSettings": [
+    {"name":"ft_pause2","order":1,"path":"fonts/ft_pause2/ft_pause2.yy",},
     {"name":"obj_entidade_objetos","order":2,"path":"objects/obj_entidade_objetos/obj_entidade_objetos.yy",},
     {"name":"spr_player_ataque_teste","order":4,"path":"sprites/spr_player_ataque_teste/spr_player_ataque_teste.yy",},
     {"name":"spr_player_pulo_teste","order":3,"path":"sprites/spr_player_pulo_teste/spr_player_pulo_teste.yy",},
     {"name":"spr_cx_teste","order":6,"path":"sprites/spr_cx_teste/spr_cx_teste.yy",},
+    {"name":"obj_oPause","order":5,"path":"objects/obj_oPause/obj_oPause.yy",},
     {"name":"spr_cx_aberta_teste","order":7,"path":"sprites/spr_cx_aberta_teste/spr_cx_aberta_teste.yy",},
     {"name":"spr_cx_abrindo_teste","order":8,"path":"sprites/spr_cx_abrindo_teste/spr_cx_abrindo_teste.yy",},
     {"name":"obj_player","order":1,"path":"objects/obj_player/obj_player.yy",},
