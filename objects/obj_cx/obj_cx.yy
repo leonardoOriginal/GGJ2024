@@ -33,9 +33,12 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_cx_teste",
-    "path": "sprites/spr_cx_teste/spr_cx_teste.yy",
+    "name": "spr_caixa_idle",
+    "path": "sprites/spr_caixa_idle/spr_caixa_idle.yy",
   },
-  "spriteMaskId": null,
+  "spriteMaskId": {
+    "name": "spr_caixa_idle",
+    "path": "sprites/spr_caixa_idle/spr_caixa_idle.yy",
+  },
   "visible": true,
 }

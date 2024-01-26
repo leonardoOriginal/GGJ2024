@@ -4,6 +4,9 @@ function Script1(){
 	
 }
 
+randomize()
+
+
 function mudo_sprite(_sprite)
 {
 	image_speed = 1;
@@ -14,3 +17,4 @@ function mudo_sprite(_sprite)
 		image_index = 0;
 	}
 }
+

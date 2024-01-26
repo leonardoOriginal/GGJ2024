@@ -24,7 +24,7 @@ switch(estado)
 {
 	case "abrindo":
 	
-		mudo_sprite(spr_cx_abrindo_teste);
+		mudo_sprite(spr_caixa_idle);
 		
 		if(abrir_timer > 0)
 		{
@@ -40,12 +40,14 @@ switch(estado)
 	
 	case "abriu":
 		
-		mudo_sprite(spr_cx_aberta_teste);
+		mudo_sprite(spr_caixa_idle);
 		
+		/*
 		if (sprite_index != spr_cx_aberta_teste)
 		{
 			mudo_sprite(spr_cx_aberta_teste);
 		}
+		*/
 		
 		//Se eu terminei a animação, eu me destruo
 		/*if (image_index >= image_number - 1)
@@ -57,4 +59,4 @@ switch(estado)
 	break;
 }
 
-show_debug_message(estado);
+//show_debug_message(estado);

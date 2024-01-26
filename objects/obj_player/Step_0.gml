@@ -54,9 +54,9 @@ y += velv;
 var _chao = instance_place(x, y + 1, obj_chao);
 
 //Velocidade de lentidão ao atacar
-var _velatq = 5 * sign(velh_real)
+var _velatq = 5 * sign(image_xscale)
 //Velocidade de lentidão para jogar a caixa
-var _velcx = 2 * sign(velh_real)
+var _velcx = .3 * sign(image_xscale)
 
 //Pegando os inputs
 var _esq, _dir, _pulo, _atq, _cx;
@@ -114,7 +114,7 @@ switch(estado)
 
 	case "idle":
 	
-	mudo_sprite(spr_player_teste);
+	mudo_sprite(spr_player_idle);
 	//image_xscale = sign(velh_real);
 	
 	if (_chao && _esq or _chao && _dir)
@@ -132,7 +132,7 @@ switch(estado)
 	
 	case "correndo":
 	
-	mudo_sprite(spr_player_correndo_teste);
+	mudo_sprite(spr_player_run);
 	image_xscale = sign(velh_real);
 	
 	if(!_esq && !_dir && !_pulo)
@@ -149,7 +149,7 @@ switch(estado)
 	
 	case "pulando":
 	
-	mudo_sprite(spr_player_pulo_teste);
+	mudo_sprite(spr_player_pulo);
 	
 	if (_chao && !_dir && !_esq)
 	{
@@ -166,9 +166,9 @@ switch(estado)
 	case "ataque":
 	
 	velh = _velatq;
-	mudo_sprite(spr_player_ataque_teste);
+	mudo_sprite(spr_player_ataque);
 	
-	if (image_index >= image_number - 1)
+	if (image_index >= 2.9)
 	{
 		estado = "idle"
 	}
@@ -179,10 +179,16 @@ switch(estado)
 	case "caixa":
 	
 	velh = _velcx;
-	mudo_sprite(spr_player_caixa_teste);
+	mudo_sprite(spr_player_cx);
 	
-	if (image_index >= image_number - 1)
+	if (image_index >= image_number)
 	{
+		
+		//Jogando a caixa
+		var _caixa = instance_create_layer(x, y - 20, "projeteis", obj_cx);
+		_caixa.velh = 20 * image_xscale;
+		_caixa.velv = -80;
+		
 		estado = "idle";
 	}
 	

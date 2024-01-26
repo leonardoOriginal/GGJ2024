@@ -4,10 +4,10 @@
 // Inherit the parent event
 event_inherited();
 
-grav = 4;
+grav = 1.5;
 
 //Defininda o estado da caixa
-estado = "abrindo"; //abrindo/abriu
+estado = "idle"; //abrindo/abriu
 
 //Timer para abrir
 abrir_tempo = room_speed * 3;

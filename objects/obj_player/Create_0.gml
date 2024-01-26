@@ -5,7 +5,6 @@
 estado = "idle"
 
 
-
 //Isso vai mover o player
 velh = 0;
 velv = 0;
@@ -25,7 +24,7 @@ grav = 2;
 
 
 //Força que aplico na movimentação dele
-forca = 2.3;
+forca = 2.2;
 forca_pulo = 25;
 
 
