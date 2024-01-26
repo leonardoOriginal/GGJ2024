@@ -12,10 +12,12 @@ var _chao = instance_place(x, y + 1, obj_chao);
 
 if(!_chao)
 {
-	velv = grav;
+	velv += grav;
 }
 else
 {
+	velv = 0;
+	velh = 0;
 	estado = "abrindo";
 }
 

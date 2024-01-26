@@ -14,9 +14,9 @@
     {"name":"Sequências","order":10,"path":"folders/Sequências.yy",},
     {"name":"Shaders","order":5,"path":"folders/Shaders.yy",},
     {"name":"Sons","order":2,"path":"folders/Sons.yy",},
+    {"name":"Caixa","order":5,"path":"folders/Sprites/Caixa.yy",},
     {"name":"Player","order":4,"path":"folders/Sprites/Player.yy",},
     {"name":"teste","order":3,"path":"folders/Sprites/teste.yy",},
-    {"name":"Caixa","order":5,"path":"folders/Sprites/Caixa.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"ft_pause2","order":1,"path":"fonts/ft_pause2/ft_pause2.yy",},
