@@ -8,16 +8,21 @@ estado = "idle"
 velh = 0;
 velv = 0;
 
+distance = 300;
+pulo = 20;
+
 grav = 2;
 
-vel = choose(4, -4);
+vel = 4;
 
-andando = choose(true, false);
+atacar = "parado"; //"parado" e o "perserguir"
+
+
 
 /*
-if (andando)
+if (atacar)
 {
-	if (andando)
+	if (atacar)
 	{
 		velh = choose(vel, -vel);
 	}
@@ -28,4 +33,5 @@ if (andando)
 }
 */
 
-tempo_decidir = room_speed * 3;
+tempo_decidir = room_speed * 1.5;
+pode_caixa_bb	= room_speed * 5;

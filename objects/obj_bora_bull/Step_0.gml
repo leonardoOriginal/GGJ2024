@@ -53,24 +53,41 @@ y += velv;
 
 var _chao = instance_place(x, y + 1, obj_chao);
 
+
 if(_chao)
 {
-	//Vou diminuir o tempo de decidir andar
+	//Vou diminuir o tempo de decidir atacar
 	tempo_decidir -= 1;
+	//Vou diminuir o tempo de poder usar a caixa
+	pode_caixa_bb -= 1;
 	
-	//Se o tempo acabou, eu decido se eu vou andar
+	//Se o tempo acabou, eu decido se eu vou atacar
 	if (tempo_decidir <= 0)
 	{
-		andando = choose(true, false);
+		atacar = choose("parado", "perseguir");
 		
 		//Escolhendo a direção se ele decidiu andar
-		if (andando)
+		if (atacar == "parado")
 		{
-			velh = choose(vel, -vel);
+			
+			if (pode_caixa_bb > 0)
+			{
+				velh = 0;
+				estado = "pulo";
+			}
+			else if (pode_caixa_bb <= 0)
+			{
+				velh = 0;
+				estado = choose("caixa", "pulo");
+			}
 		}
-		else
+		else if (atacar == "perseguir")
 		{
-			velh = 0;
+			//velh = choose(vel, -vel);
+			if distance_to_object(obj_player) < distance
+			{
+				estado = "correndo";
+			}
 		}
 		
 		//Resetandoo tempo
@@ -89,10 +106,6 @@ if(velh != 0)
 	estado = "correndo";
 	image_xscale = sign(velh);
 }
-else
-{
-	estado = choose("idle", "ataque");
-}
 
 
 //estado = choose("idle", "correndo");
@@ -110,11 +123,31 @@ switch(estado)
 	
 	mudo_sprite(spr_inimigo_run_teste);
 	
+	var _vir = sign(obj_player.x - x);
+	velh = _vir * vel;
+	
+	if (distance_to_object(obj_player)) > distance
+	{
+		estado = "idle";
+	}
+	else if (distance_to_object(obj_player)) < 100
+	{
+		estado = "ataque";
+	}
+	
+	/*
+	if ( velh == 0)
+	{
+		estado = "idle"
+	}
+	*/
+	
 	break;
 	
 	
 	case "ataque":
 	
+	velh = 0;
 	mudo_sprite(spr_inimigo_ataque_teste);
 	
 	if (image_index >= image_number - 1)
@@ -123,4 +156,38 @@ switch(estado)
 	}
 	
 	break;
+	
+	
+	case "pulo":
+	
+	velv += pulo;
+	mudo_sprite(spr_teste_bb_pulo);
+	//show_message("deveria pular")
+	
+	/*
+	if (_chao && velh == 0)
+	{
+		estado = "idle";
+	}
+	else if (_chao && velh != 0)
+	{
+		estado = "correndo"
+	}
+	*/
+	
+	
+	break;
+	
+	
+	case "caixa":
+	
+	mudo_sprite(spr_teste_bora_bull_caixa)
+	
+	if (image_index >= image_number - 1)
+	{
+		pode_caixa_bb = room_speed * 5;
+		estado = "idle"
+	}
+	
+	break ;
 }
