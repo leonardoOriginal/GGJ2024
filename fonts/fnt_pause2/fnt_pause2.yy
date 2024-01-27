@@ -1,7 +1,7 @@
 {
   "resourceType": "GMFont",
   "resourceVersion": "1.0",
-  "name": "ft_pause2",
+  "name": "fnt_pause2",
   "AntiAlias": 1,
   "applyKerning": 0,
   "ascender": 41,
