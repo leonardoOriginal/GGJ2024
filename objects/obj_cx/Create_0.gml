@@ -4,7 +4,7 @@
 // Inherit the parent event
 event_inherited();
 
-grav = 1.5;
+grav = 1;
 
 //Defininda o estado da caixa
 estado = "idle"; //abrindo/abriu

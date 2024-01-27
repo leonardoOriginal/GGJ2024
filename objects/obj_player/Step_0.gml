@@ -187,7 +187,7 @@ switch(estado)
 		//Jogando a caixa
 		var _caixa = instance_create_layer(x, y - 20, "projeteis", obj_cx);
 		_caixa.velh = 20 * image_xscale;
-		_caixa.velv = -80;
+		_caixa.velv = -20;
 		
 		estado = "idle";
 	}
