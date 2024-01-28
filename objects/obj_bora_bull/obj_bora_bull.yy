@@ -30,9 +30,12 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_inimigo_teste",
-    "path": "sprites/spr_inimigo_teste/spr_inimigo_teste.yy",
+    "name": "spr_bb_idle",
+    "path": "sprites/spr_bb_idle/spr_bb_idle.yy",
   },
-  "spriteMaskId": null,
+  "spriteMaskId": {
+    "name": "spr_bb_idle",
+    "path": "sprites/spr_bb_idle/spr_bb_idle.yy",
+  },
   "visible": true,
 }

@@ -9,6 +9,14 @@ estado = "idle"
 velh = 0;
 velv = 0;
 
+dano = false;
+
+//Sistema de vida
+posso_perder_vida = true;
+tempo_dano	= room_speed * 0.5;
+timer_dano	= 0;
+inv_tempo	= room_speed * 1.5;
+inv_timer	= 0;
 
 //Esses caras que vão guardar a força que eu apliquei neles
 velh_real = 0;

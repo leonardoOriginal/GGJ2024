@@ -9,6 +9,8 @@ grav = 1;
 //Defininda o estado da caixa
 estado = "idle"; //abrindo/abriu
 
+controle = true;
+
 //Timer para abrir
 abrir_tempo = room_speed * 3;
 abrir_timer = abrir_tempo;

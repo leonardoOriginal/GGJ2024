@@ -71,6 +71,13 @@ _pulo	= keyboard_check_pressed(vk_space);
 
 velh_real += (_dir - _esq) * forca;
 
+
+
+if (dano)
+{
+	estado = "dano";
+}
+
 //Lidando com o pulo e gravidade
 if (_chao)
 {
@@ -115,6 +122,9 @@ switch(estado)
 	case "idle":
 	
 	mudo_sprite(spr_player_idle);
+	
+	_atq	= keyboard_check_pressed(ord("K"));
+	_cx		= keyboard_check_pressed(ord("Q"));
 	//image_xscale = sign(velh_real);
 	
 	if (_chao && _esq or _chao && _dir)
@@ -167,6 +177,7 @@ switch(estado)
 	
 	velh = _velatq;
 	mudo_sprite(spr_player_ataque);
+	_cx		= "";
 	
 	if (image_index >= 2.9)
 	{
@@ -180,6 +191,7 @@ switch(estado)
 	
 	velh = _velcx;
 	mudo_sprite(spr_player_cx);
+	_atq	= "";
 	
 	if (image_index >= image_number)
 	{
@@ -193,7 +205,73 @@ switch(estado)
 	}
 	
 	break;
+	
+
+	
+	case "dano":
+	
+	mudo_sprite(spr_player_pulo);
+	velh = 0;
+	
+	if (posso_perder_vida)
+		{
+			global.player_vida --;
+			
+			if (global.player_vida <= 0)
+			{
+				//estado = "dead";
+			}
+			else
+			{
+				posso_perder_vida = false;
+			}
+		}
 		
+	if (inv_timer == 0)
+	{
+		estado = "idle"
+	}
+	
+	break;
+		
+}
+
+//Se o timer do dano é maior do que zero, eu diminuo ele
+if (timer_dano > 0)
+{
+	timer_dano--;
+}
+else
+{
+	//Acabou o meu timer do dano
+	dano = false;
+	posso_perder_vida = true;
+}
+if (inv_timer > 0)
+{
+	inv_timer--;
+	
+	image_alpha = .5;
+	
+}
+else
+{
+	image_alpha = 1;
+}
+
+//Tomando dano
+var _inimigo = instance_place(x, y, obj_bora_bull);
+
+if (_inimigo && inv_timer <= 0)
+{
+
+	if (_inimigo.morto == false && _inimigo.dano == false)
+	{
+		dano = true;
+		//Dando o valor do timer dano
+		timer_dano	= tempo_dano;
+		inv_timer	= inv_tempo
+	}
 }
  
 //show_debug_message(estado)

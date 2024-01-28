@@ -14,7 +14,7 @@ if(!_chao)
 {
 	velv += grav;
 }
-else
+else if (_chao && controle)
 {
 	velv = 0;
 	velh = 0;
@@ -26,37 +26,40 @@ switch(estado)
 {
 	case "abrindo":
 	
-		mudo_sprite(spr_caixa_idle);
+	mudo_sprite(spr_caixa_abrindo);
 		
-		if(abrir_timer > 0)
-		{
-			abrir_timer--;
-		}
-		else
-		{
-			estado = "abriu";
-		}
+	if(abrir_timer > 0)
+	{
+		abrir_timer--;
+	}
+	else if (abrir_timer <= 0)
+	{
+		controle = false;
+		estado = "abri";
+	}
 		
 	break;
 	
 	
-	case "abriu":
+	case "abri":
 		
-		mudo_sprite(spr_caixa_idle);
+		//mudo_sprite(spr_caixa_aberta);
 		
-		/*
-		if (sprite_index != spr_cx_aberta_teste)
+		
+		if (sprite_index != spr_caixa_aberta)
 		{
-			mudo_sprite(spr_cx_aberta_teste);
+			mudo_sprite(spr_caixa_aberta);
 		}
-		*/
+		
 		
 		//Se eu terminei a animação, eu me destruo
-		/*if (image_index >= image_number - 1)
+		if (image_index >= image_number - 1)
 		{
+			global.obj_spawn = true;
+			global.qtd = choose(1, 10, 666, 3, 4, 6, 20);
 			instance_destroy();
 		}
-		*/
+		
 		
 	break;
 }

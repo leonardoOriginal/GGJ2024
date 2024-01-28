@@ -1,7 +1,6 @@
 /// @description Inserir descrição aqui
 // Você pode escrever seu código neste editor
 
-
 #region Colisão
 
 //Fazendo a colisão horizontal
@@ -51,143 +50,177 @@ y += velv;
 
 #endregion
 
+
 var _chao = instance_place(x, y + 1, obj_chao);
+var _vir = sign(obj_player.x - x);
 
-
-if(_chao)
-{
-	//Vou diminuir o tempo de decidir atacar
-	tempo_decidir -= 1;
-	//Vou diminuir o tempo de poder usar a caixa
-	pode_caixa_bb -= 1;
-	
-	//Se o tempo acabou, eu decido se eu vou atacar
-	if (tempo_decidir <= 0)
-	{
-		atacar = choose("parado", "perseguir");
-		
-		//Escolhendo a direção se ele decidiu andar
-		if (atacar == "parado")
-		{
-			
-			if (pode_caixa_bb > 0)
-			{
-				velh = 0;
-				estado = "pulo";
-			}
-			else if (pode_caixa_bb <= 0)
-			{
-				velh = 0;
-				estado = choose("caixa", "pulo");
-			}
-		}
-		else if (atacar == "perseguir")
-		{
-			//velh = choose(vel, -vel);
-			if distance_to_object(obj_player) < distance
-			{
-				estado = "correndo";
-			}
-		}
-		
-		//Resetandoo tempo
-		tempo_decidir = room_speed * 3;
-	}
-}
-else
-{
-	velv += grav;
-}
-
-
-
-if(velh != 0)
-{
-	estado = "correndo";
-	image_xscale = sign(velh);
-}
-
-
-//estado = choose("idle", "correndo");
+pode_caixa_bb -= 1;
 
 switch(estado)
 {
-	case "idle":
+	//Inicia a room e pensa
+	case "pensando":
 	
-	mudo_sprite(spr_inimigo_teste);
+	mudo_sprite(spr_bb_idle);
+	velh = 0;
+	tempo_decidir-= 1;
+	tempo_correr = room_speed * 4;
+	pular = true;
+	esmagar = false;
+	cair = false;
+	
+	image_xscale = _vir;
+	
+	if (_chao)
+	{
+		if (tempo_decidir <= 0)
+		{
+			if (pode_caixa_bb > 0)
+			{
+				estado = choose("correndo", "pulo")
+			}
+			else if (pode_caixa_bb <= 0)
+			{
+				estado = choose("correndo", "pulo", "caixa")
+			}
+		}
+	}
+	else
+	{
+		velv += grav;
+	}
 	
 	break;
 	
 	
+	//Persegue o player
 	case "correndo":
 	
-	mudo_sprite(spr_inimigo_run_teste);
-	
-	var _vir = sign(obj_player.x - x);
-	velh = _vir * vel;
-	
-	if (distance_to_object(obj_player)) > distance
+	image_xscale = _vir;
+	mudo_sprite(spr_bb_run);
+	tempo_correr -= 1
+
+	if (tempo_correr > 0 )
 	{
-		estado = "idle";
+		if (distance_to_object(obj_player) < distance)
+		{
+			velh = _vir * vel;
+		}
+		
+		if (distance_to_object(obj_player) < 100)
+		{
+			velh = 0;
+			estado = "ataque";
+		}
 	}
-	else if (distance_to_object(obj_player)) < 100
+	else if (tempo_correr <= 0)
 	{
-		estado = "ataque";
+		//Resetando tempo
+		tempo_decidir = room_speed * 3;
+		
+		estado = "pensando";
 	}
-	
-	/*
-	if ( velh == 0)
-	{
-		estado = "idle"
-	}
-	*/
 	
 	break;
 	
 	
+	//Ataca o player
 	case "ataque":
 	
 	velh = 0;
-	mudo_sprite(spr_inimigo_ataque_teste);
+	mudo_sprite(spr_bb_ataque);
 	
-	if (image_index >= image_number - 1)
+	if (image_index >= image_number)
 	{
-		estado = "idle"
+		//Resetandoo tempo
+		tempo_decidir = room_speed * 3;
+		tempo_correr = room_speed * 4;
+		
+		estado = "pensando"
 	}
 	
 	break;
 	
 	
-	case "pulo":
-	
-	velv += pulo;
-	mudo_sprite(spr_teste_bb_pulo);
-	//show_message("deveria pular")
-	
-	/*
-	if (_chao && velh == 0)
-	{
-		estado = "idle";
-	}
-	else if (_chao && velh != 0)
-	{
-		estado = "correndo"
-	}
-	*/
-	
-	
-	break;
-	
-	
+	//Joga a caixa
 	case "caixa":
 	
-	mudo_sprite(spr_teste_bora_bull_caixa)
+	estado = "caixa"
+	velh = 0;
+	mudo_sprite(spr_bb_caixa);
 	
-	if (image_index >= image_number - 1)
+	if (image_index >= image_number)
 	{
+		//Jogando a caixa
+		var _caixa = instance_create_layer(x, y - 20, "projeteis", obj_cx);
+		_caixa.velh = 20 * image_xscale;
+		_caixa.velv = -20;
+		
+		//Resetandoo tempo
+		tempo_decidir = room_speed * 3;
 		pode_caixa_bb = room_speed * 5;
-		estado = "idle"
+		
+		estado = "pensando"
 	}
 	
-	break ;
+	break;
+	
+	
+	//Pula no player
+	case "pulo":
+	
+	if(tempo_pulo > 0)
+	{
+		if(!cair)
+		{
+			mudo_sprite(spr_bb_pulando);
+			y -= pulo * 2;
+		} 
+		else
+		{
+			y += pulo;
+		}
+	
+		if(y < obj_player.y - altura_maxima){
+			//show_message("Altura máxima caindo");
+			cair = true;
+		}
+	
+		x += sign((obj_player.x - x)) * 8;
+	
+		if (x < obj_player.x + 10 and x > obj_player.x - 10)
+		{
+			//show_message("Testee");
+			esmagar = true;
+			pular = false
+			
+		}
+	}
+	else if (tempo_pulo <= 0 )
+	{
+		velv = 0;
+		velh = 0;
+		pular = true;
+		esmagar = false;
+		cair = false;
+		estado = "pensando"
+		tempo_decidir = room_speed * 3;
+		tempo_pulo = choose((room_speed *.1), (room_speed *.05), (room_speed * .12), (room_speed * .11));
+	}
+
+	if(esmagar){
+		velv += pulo * 2;	
+		mudo_sprite(spr_bb_caindo);
+		
+		if (_chao)
+		{
+			velv = 0;
+			pular = true;
+			esmagar = false;
+			cair = false;
+			tempo_pulo -= 1;
+		}
+	}
+	
+	break;
 }
